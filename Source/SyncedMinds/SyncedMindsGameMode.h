@@ -9,7 +9,7 @@
 /**
  *  Simple GameMode for a third person game
  */
-UCLASS(abstract)
+UCLASS(MinimalAPI)
 class ASyncedMindsGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
@@ -18,6 +18,12 @@ public:
 	
 	/** Constructor */
 	ASyncedMindsGameMode();
+	
+	UFUNCTION(BlueprintCallable)
+		void HostGame();
+	
+	UFUNCTION(BlueprintCallable)
+		void JoinGame();
 };
 
 
