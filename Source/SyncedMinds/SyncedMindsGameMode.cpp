@@ -17,6 +17,6 @@ void ASyncedMindsGameMode::JoinGame()
 	APlayerController* PC = GetGameInstance()->GetFirstLocalPlayerController();
 	if (PC)
 	{
-		PC->ClientTravel(TEXT("192.168.1.64"), TRAVEL_Absolute);
+		PC->ClientTravel(TEXT("192.168.1.64:7777"), TRAVEL_Absolute);
 	}
 }
