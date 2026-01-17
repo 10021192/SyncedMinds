@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "Particles/ParticleSystem.h"
 #include "SyncedMindsCharacter.generated.h"
 
 class USpringArmComponent;
@@ -98,5 +99,11 @@ public:
 	
 	UPROPERTY(EditAnywhere)
 	UStaticMesh* SphereMesh;
+	
+	UFUNCTION(Client, Reliable, BlueprintCallable)
+	void ClientRPCFunction();
+	
+	UPROPERTY(EditAnywhere)
+	UParticleSystem* ParticleEffect;
 };
 

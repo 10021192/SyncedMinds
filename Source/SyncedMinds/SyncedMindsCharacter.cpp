@@ -12,6 +12,7 @@
 #include "InputActionValue.h"
 #include "SyncedMinds.h"
 #include "Net/UnrealNetwork.h"
+#include "Kismet/GameplayStatics.h"
 #include "Engine/StaticMeshActor.h"
 
 ASyncedMindsCharacter::ASyncedMindsCharacter()
@@ -141,18 +142,20 @@ void ASyncedMindsCharacter::ServerRPCFunction_Implementation(int MyArg)
 #if 0
 		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Green,
 			TEXT("Server: ServerRPCFunction_Implementation"));
-#endif
 		
 		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Green,
 			FString::Printf(TEXT("MyArg: %d"), MyArg));
-		
+#endif	
 		if (!SphereMesh)
 		{
 			return;
 		}
 		
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
 		AStaticMeshActor *StaticMeshActor = GetWorld()->
-			SpawnActor<AStaticMeshActor>(AStaticMeshActor::StaticClass());
+			SpawnActor<AStaticMeshActor>(SpawnParams);
+		//StaticMeshActor-> SetOwner(this);
 		if (StaticMeshActor)
 		{
 			StaticMeshActor->SetReplicates(true);
@@ -184,4 +187,14 @@ bool ASyncedMindsCharacter::ServerRPCFunction_Validate(int MyArg)
 		return true;
 	}
 	return false;
+}
+
+void ASyncedMindsCharacter::ClientRPCFunction_Implementation()
+{
+	if (ParticleEffect)
+	{
+		FVector SpawnLocation = GetActorLocation();
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleEffect, SpawnLocation,
+		FRotator::ZeroRotator, true, EPSCPoolMethod::AutoRelease);
+	}
 }
