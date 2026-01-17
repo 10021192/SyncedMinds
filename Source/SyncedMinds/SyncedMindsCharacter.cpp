@@ -134,7 +134,7 @@ void ASyncedMindsCharacter::DoJumpEnd()
 	StopJumping();
 }
 
-void ASyncedMindsCharacter::ServerRPCFunction_Implementation()
+void ASyncedMindsCharacter::ServerRPCFunction_Implementation(int MyArg)
 {
 	if (HasAuthority())
 	{
@@ -142,6 +142,9 @@ void ASyncedMindsCharacter::ServerRPCFunction_Implementation()
 		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Green,
 			TEXT("Server: ServerRPCFunction_Implementation"));
 #endif
+		
+		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Green,
+			FString::Printf(TEXT("MyArg: %d"), MyArg));
 		
 		if (!SphereMesh)
 		{
@@ -172,4 +175,13 @@ void ASyncedMindsCharacter::ServerRPCFunction_Implementation()
 			}
 		}
 	}
+}
+
+bool ASyncedMindsCharacter::ServerRPCFunction_Validate(int MyArg)
+{
+	if (MyArg >= 0 && MyArg <= 100)
+	{
+		return true;
+	}
+	return false;
 }
