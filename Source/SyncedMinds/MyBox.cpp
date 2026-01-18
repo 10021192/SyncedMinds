@@ -23,8 +23,7 @@ void AMyBox::BeginPlay()
 	
 	if (HasAuthority())
 	{
-		//GetWorld()->GetTimerManager().SetTimer(TestTimer, this,
-			//&AMyBox::MulticastRPCExplode, 2.0f, false);
+		SetReplicatedVar(ReplicatedVar - 1.f);
 	}
 }
 
@@ -57,20 +56,27 @@ void AMyBox::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimePr
 	DOREPLIFETIME(AMyBox, ReplicatedVar);
 }
 
+void AMyBox::SetReplicatedVar(float NewValue)
+{
+	if (!HasAuthority()) return;
+
+	ReplicatedVar = NewValue;
+
+	// Server needs to see the same effect too (OnRep won't fire on server)
+	ApplyReplicatedVarEffects();
+}
+
 void AMyBox::OnRep_ReplicatedVar()
 {
-	if (HasAuthority())
-	{
-		FVector NewLocation = GetActorLocation() + FVector(0.0f, 0.0f, 200.0f);
-		SetActorLocation(NewLocation);
-		
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("Server: OnRep_ReplicatedVar"));
-	}
-	else
-	{
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
-			//FString::Printf(TEXT("Client: OnRep_ReplicatedVar")));
-	}
+	// Clients react when the replicated value updates
+	ApplyReplicatedVarEffects();
+}
+
+void AMyBox::ApplyReplicatedVarEffects()
+{
+    // Move actor, update text, play VFX, etc.
+	FVector NewLocation = GetActorLocation() + FVector(0.0f, 0.0f, 200.0f);
+	SetActorLocation(NewLocation);
 }
 
 void AMyBox::DecreaseReplicatedVar()

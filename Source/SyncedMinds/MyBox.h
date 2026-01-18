@@ -27,8 +27,11 @@ public:
 	UPROPERTY(ReplicatedUsing = OnRep_ReplicatedVar, BlueprintReadWrite)
 	float ReplicatedVar;
 	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION()
 	void OnRep_ReplicatedVar();
+	
+	void ApplyReplicatedVarEffects();
+	void SetReplicatedVar(float NewValue);
 	
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
