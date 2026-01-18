@@ -84,7 +84,7 @@ void AMyBox::DecreaseReplicatedVar()
 	if (HasAuthority())
 	{
 		ReplicatedVar -= 1.0f;
-		OnRep_ReplicatedVar();
+		ApplyReplicatedVarEffects();
 		if (ReplicatedVar > 0)
 		{
 			GetWorld()->GetTimerManager().SetTimer(TestTimer, this,
