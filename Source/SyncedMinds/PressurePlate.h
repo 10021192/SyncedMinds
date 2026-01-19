@@ -7,6 +7,9 @@
 #include "Components/StaticMeshComponent.h"
 #include "PressurePlate.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPressurePlateOnActivated);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FPressurePlateOnDeactivated);
+
 UCLASS()
 class SYNCEDMINDS_API APressurePlate : public AActor
 {
@@ -35,4 +38,10 @@ public:
 	
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
 	bool Activated;
+	
+	UPROPERTY(BlueprintAssignable)
+	FPressurePlateOnActivated OnActivated;
+	
+	UPROPERTY(BlueprintAssignable)
+	FPressurePlateOnDeactivated OnDeactivated;
 };
