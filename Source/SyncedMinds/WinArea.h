@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+
+#include "Components/BoxComponent.h"
+
 #include "WinArea.generated.h"
 
 UCLASS()
@@ -22,5 +25,10 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	bool WinCondition;
 
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	UBoxComponent* WinAreaBox;
 };
