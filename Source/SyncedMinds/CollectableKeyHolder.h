@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+
+#include "Components/StaticMeshComponent.h"
+
 #include "CollectableKeyHolder.generated.h"
 
 UCLASS()
@@ -22,5 +25,19 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float KeyMeshRotationSpeed;
 
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	USceneComponent* RootComp;
+	
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	UStaticMeshComponent* KeyMesh;
+	
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	UStaticMeshComponent* Mesh;
+	
+	UFUNCTION()
+	void ActivateKeyMesh();
 };
