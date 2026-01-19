@@ -7,6 +7,8 @@
 
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/AudioComponent.h"
+
 #include "CollectableKey.generated.h"
 
 UCLASS()
@@ -27,6 +29,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float RotationSpeed;
+	
 	UPROPERTY(ReplicatedUsing = OnRep_IsCollected, BlueprintReadWrite, VisibleAnywhere)
 	bool IsCollected;
 
@@ -41,4 +46,7 @@ public:
 	
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
 	UStaticMeshComponent* Mesh;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UAudioComponent* CollectAudio;
 };

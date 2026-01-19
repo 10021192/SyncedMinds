@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "CollectableKey.h"
+#include "SyncedMindsCharacter.h"
 
 #include "Net/UnrealNetwork.h"
 
@@ -27,6 +28,11 @@ ACollectableKey::ACollectableKey()
 	Mesh->SetupAttachment(RootComp);
 	Mesh->SetIsReplicated(true);
 	Mesh->SetCollisionProfileName(FName("OverlapAllDynamic"));
+	
+	CollectAudio = CreateDefaultSubobject<UAudioComponent>(TEXT("CollectAudio"));
+	CollectAudio->SetupAttachment(RootComp);
+	CollectAudio->SetAutoActivate(false);
+	RotationSpeed = 100.0f;
 }
 
 // Called when the game starts or when spawned
@@ -41,6 +47,23 @@ void ACollectableKey::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (HasAuthority())
+	{
+		// Rotate static mesh
+		Mesh->AddRelativeRotation(FRotator(0.0f, RotationSpeed * DeltaTime, 0.0f));
+		
+		TArray<AActor*> OverlapActors;
+		Capsule->GetOverlappingActors(OverlapActors, ASyncedMindsCharacter::StaticClass());
+		
+		if (OverlapActors.Num() > 0)
+		{
+			if (!IsCollected)
+			{
+				IsCollected = true;
+				OnRep_IsCollected();
+			}
+		}
+	}
 }
 
 void ACollectableKey::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -52,5 +75,15 @@ void ACollectableKey::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 
 void ACollectableKey::OnRep_IsCollected()
 {
+	if (HasAuthority())
+	{
+		UE_LOG(LogTemp, Display, TEXT("OnRep_IsCollected called from the Server!"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Display, TEXT("OnRep_IsCollected called from the Client!"));
+	}
+	Mesh->SetVisibility(!IsCollected);
 	
+	CollectAudio->Play();
 }
