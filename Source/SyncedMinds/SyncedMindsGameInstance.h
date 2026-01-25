@@ -27,8 +27,8 @@ public:
 	
 private:
 	// Matchmaking server configuration
-	FString MatchmakingServerIP = TEXT("127.0.0.1");
-	int32 MatchmakingServerPort = 5555;
+	FString MatchmakingServerIP = TEXT("192.168.1.64");
+	int32 MatchmakingServerPort = 7777;
 
 	// Helper function to request server address from matchmaking
 	FString RequestServerAddress();
