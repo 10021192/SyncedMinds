@@ -78,6 +78,12 @@ FString USyncedMindsGameInstance::RequestServerAddress()
 		SocketSubsystem->DestroySocket(Socket);
 		return FString();
 	}
+	
+	// Send protocol request 'g' (get server address)
+	FString Request = TEXT("g");
+	int32 BytesSent = 0;
+	FTCHARToUTF8 Converter(*Request);
+	Socket->Send((const uint8*)Converter.Get(), Converter.Length(), BytesSent);
 
 	UE_LOG(LogTemp, Display, TEXT("Connected to matchmaking server"));
 
