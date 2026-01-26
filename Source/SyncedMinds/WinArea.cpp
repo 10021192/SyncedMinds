@@ -39,7 +39,7 @@ void AWinArea::Tick(float DeltaTime)
 			TArray<AActor*> OverlapActors;
 			WinAreaBox->GetOverlappingActors(OverlapActors, ASyncedMindsCharacter::StaticClass());
 			
-			WinCondition = OverlapActors.Num() == 2;
+			WinCondition = OverlapActors.Num() == 1;
 			if (WinCondition)
 			{
 				UE_LOG(LogTemp, Display, TEXT("Win!"));
