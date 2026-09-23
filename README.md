@@ -1,6 +1,6 @@
 # SyncedMinds
 
-A 2-player co-op puzzle game built in Unreal Engine 5.6 with C++ and a custom TCP matchmaking backend.
+A 3D 2-player co-op puzzle game built in Unreal Engine 5.6 with C++ and a custom TCP matchmaking backend.
 
 ## About
 
