@@ -50,7 +50,20 @@ Launch `SyncedMinds.exe`, click "Join Game" in the main menu.
 
 ## Screenshots
 
+<div align="center">
 
+<table>
+  <tr>
+    <td align="center" width="50%"><b>Player 1 steps on pressure plate and activates platform to carry Player 2 up</b></td>
+    <td align="center" width="50%">Player 1 steps on pressure plate and opens altar passageway for Player 2 to cross<b></b></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="screenshots/moveplatformup.png" alt="Cooperate to access higher up areas" height="500"></td>
+    <td align="center"><img src="screenshots/openaltar.png" alt="Cooperate to access end altar" height="500"></td>
+  </tr>
+</table>
+
+</div>
 
 ## License
 
