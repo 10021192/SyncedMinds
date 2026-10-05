@@ -48,6 +48,10 @@ Launch `SyncedMinds.exe`, click "Join Game" in the main menu.
 - Client-side physics interactions (pushing objects) don't replicate to server — would require Server RPC implementation
 - Uses headless listen-server instead of true dedicated server build (Epic Launcher UE limitation)
 
+## Screenshots
+
+
+
 ## License
 
 This project was developed for academic purposes.
